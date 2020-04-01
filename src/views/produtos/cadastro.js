@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ProdutoService from '../../app/produtoService'
+import Card from '../../components/card'
 import { withRouter } from 'react-router-dom'
 
 const estadoInicial = {
@@ -30,6 +31,7 @@ class CadastroProduto extends React.Component {
     }
     
     onSubmit = (event) => {
+        event.preventDefault()
         const produto = {
             nome: this.state.nome,
             sku: this.state.sku,
@@ -65,12 +67,8 @@ class CadastroProduto extends React.Component {
 
     render(){
         return(
-            <div className="card">
-                <div className="card-header">
-                    { this.state.atualizando ? 'Atualização ' : 'Cadastro '}
-                    de Produto
-                </div>
-                <div className="card-body">
+            <Card header={this.state.atualizando ? 'Atualização de Produto ' : 'Cadastro de Produto '}>
+                <form id="frmProduto" onSubmit={this.onSubmit}>
                     {
                         this.state.sucesso && 
                         <div class="alert alert-dismissible alert-success">
@@ -94,21 +92,21 @@ class CadastroProduto extends React.Component {
                             <div className="form-group">
                                 <label>Nome: *</label>
                                 <input type="text" 
-                                       value={this.state.nome}
-                                       onChange={this.onChange}
-                                       className="form-control"
-                                       name="nome" />
+                                    value={this.state.nome}
+                                    onChange={this.onChange}
+                                    className="form-control"
+                                    name="nome" />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>SKU: *</label>
                                 <input type="text" 
-                                       className="form-control"
-                                       disabled={this.state.atualizando}
-                                       onChange={this.onChange}
-                                       value={this.state.sku}
-                                       name="sku" />
+                                    className="form-control"
+                                    disabled={this.state.atualizando}
+                                    onChange={this.onChange}
+                                    value={this.state.sku}
+                                    name="sku" />
                             </div>
                         </div>
                     </div> 
@@ -118,8 +116,8 @@ class CadastroProduto extends React.Component {
                                 <label>Descrição:</label>
                                 <textarea className="form-control"
                                 onChange={this.onChange}
-                                          value={this.state.descricao}
-                                          name="descricao" /> 
+                                        value={this.state.descricao}
+                                        name="descricao" /> 
                             </div>
                         </div>
                     </div>
@@ -128,35 +126,35 @@ class CadastroProduto extends React.Component {
                             <div className="form-group">
                                 <label>Preço: *</label>
                                 <input type="text" 
-                                       className="form-control"
-                                       onChange={this.onChange}
-                                       value={this.state.preco}
-                                       name="preco" />
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    value={this.state.preco}
+                                    name="preco" />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Fornecedor: *</label>
                                 <input type="text" 
-                                       className="form-control"
-                                       onChange={this.onChange}
-                                       value={this.state.fornecedor}
-                                       name="fornecedor" />
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    value={this.state.fornecedor}
+                                    name="fornecedor" />
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-1">
-                            <button onClick={this.onSubmit} className="btn btn-success">
+                            <button type="submit" className="btn btn-success">
                                 { this.state.atualizando ? 'Atualizar' : 'Salvar'}
                             </button>
                         </div>
                         <div className="col-md-1">
                             <button onClick={this.limpaCampos} className="btn btn-primary">Limpar</button>
                         </div>
-                    </div>   
-                </div>
-            </div>
+                    </div>
+                </form>       
+            </Card>
         )
     }
 }
